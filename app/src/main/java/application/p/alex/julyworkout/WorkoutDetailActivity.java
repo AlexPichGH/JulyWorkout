@@ -22,7 +22,9 @@ import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
 
 public class WorkoutDetailActivity extends AppCompatActivity {
-    private static final String RECORD_SAVE = "recordsave";
+    private static final String RECORD_PULL_UP_SAVE = "recordpullupsave";
+    private static final String RECORD_PUSH_UP_SAVE = "recordpushupsave";
+    private static final String RECORD_SIT_UP_SAVE = "recordsitupsave";
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private SharedPreferences myLastRecord;
@@ -95,7 +97,13 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             }
         });
 
-        myLastRecord = getSharedPreferences(RECORD_SAVE, Context.MODE_PRIVATE);
+        if (workoutIndex == 0) {
+            myLastRecord = getSharedPreferences(RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
+        } else if (workoutIndex == 1) {
+            myLastRecord = getSharedPreferences(RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
+        } else {
+            myLastRecord = getSharedPreferences(RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
+        }
 
         if (myLastRecord.contains(LAST_RECORD_REPEATS) && myLastRecord.contains(LAST_RECORD_DATE)) {
             record.setText(String.valueOf(myLastRecord.getInt(LAST_RECORD_REPEATS, recordRepeats)));
@@ -116,9 +124,11 @@ public class WorkoutDetailActivity extends AppCompatActivity {
                     }
                     case R.id.workout_detail_popup_delete: {
                         deleteRecord();
+                        return true;
                     }
                     case R.id.workout_detail_popup_share: {
                         shareRecord();
+                        return true;
                     }
                     default:
                         return false;
@@ -168,5 +178,10 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         record.setText("");
         currentDateAndTime.setText("");
         Toast.makeText(WorkoutDetailActivity.this, R.string.record_delete, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
