@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -18,6 +19,29 @@ public class WorkoutListActivity extends AppCompatActivity {
     private Button buttonPullUps;
     private Button buttonPushUps;
     private Button buttonSitUps;
+    private TextView textViewPullUpsRecord;
+    private TextView textViewPushUpsRecord;
+    private TextView textViewSitUpsRecord;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        } else if (requestCode == 0) {
+            String result = data.getStringExtra(String.valueOf(R.string.record));
+            textViewPullUpsRecord.setText(Constants.RECORD_MSG);
+            textViewPullUpsRecord.append(result);
+        } else if (requestCode == 1) {
+            String result = data.getStringExtra(String.valueOf(R.string.record));
+            textViewPushUpsRecord.setText(Constants.RECORD_MSG);
+            textViewPushUpsRecord.append(result);
+        } else if (requestCode == 2) {
+            String result = data.getStringExtra(String.valueOf(R.string.record));
+            textViewSitUpsRecord.setText(Constants.RECORD_MSG);
+            textViewSitUpsRecord.append(result);
+        }
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,13 +53,16 @@ public class WorkoutListActivity extends AppCompatActivity {
         buttonPullUps = findViewById(R.id.button_pull_ups);
         buttonPushUps = findViewById(R.id.button_push_ups);
         buttonSitUps = findViewById(R.id.button_sit_ups);
+        textViewPullUpsRecord = findViewById(R.id.workout_list_record_pull_ups);
+        textViewPushUpsRecord = findViewById(R.id.workout_list_record_push_ups);
+        textViewSitUpsRecord = findViewById(R.id.workout_list_record_sit_ups);
 
         buttonPullUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
                 startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 0);
-                startActivity(startDetailActivity);
+                startActivityForResult(startDetailActivity, 0);
             }
         });
 
@@ -44,7 +71,7 @@ public class WorkoutListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
                 startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 1);
-                startActivity(startDetailActivity);
+                startActivityForResult(startDetailActivity, 1);
             }
         });
 
@@ -53,7 +80,7 @@ public class WorkoutListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
                 startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 2);
-                startActivity(startDetailActivity);
+                startActivityForResult(startDetailActivity, 2);
             }
         });
     }
