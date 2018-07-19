@@ -29,18 +29,14 @@ public class WorkoutListActivity extends AppCompatActivity {
             return;
         } else if (requestCode == 0) {
             String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewPullUpsRecord.setText(Constants.RECORD_MSG);
-            textViewPullUpsRecord.append(result);
+            textViewPullUpsRecord.setText(result);
         } else if (requestCode == 1) {
             String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewPushUpsRecord.setText(Constants.RECORD_MSG);
-            textViewPushUpsRecord.append(result);
+            textViewPushUpsRecord.setText(result);
         } else if (requestCode == 2) {
             String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewSitUpsRecord.setText(Constants.RECORD_MSG);
-            textViewSitUpsRecord.append(result);
+            textViewSitUpsRecord.setText(result);
         }
-
     }
 
     @Override
