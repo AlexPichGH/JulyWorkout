@@ -47,7 +47,11 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
+
         iniUI(workoutIndex);
+
+        intent.putExtra(String.valueOf(R.string.record), record.getText().toString());
+        setResult(RESULT_OK, intent);
     }
 
     private void iniUI(int workoutIndex) {
