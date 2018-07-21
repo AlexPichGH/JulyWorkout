@@ -15,6 +15,9 @@ import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
 
 public class WorkoutListActivity extends AppCompatActivity {
+    private static final int PULL_UPS_ID = 0;
+    private static final int PUSH_UPS_ID = 1;
+    private static final int SIT_UPS_ID = 2;
     private List<Workout> workoutList;
     private Button buttonPullUps;
     private Button buttonPushUps;
@@ -25,17 +28,23 @@ public class WorkoutListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {
+        if (data != null && resultCode == RESULT_OK) {
+            String result = data.getStringExtra(String.valueOf(R.string.record));
+            switch (requestCode) {
+                case PULL_UPS_ID:
+                    textViewPullUpsRecord.setText(result);
+                    break;
+                case PUSH_UPS_ID:
+                    textViewPushUpsRecord.setText(result);
+                    break;
+                case SIT_UPS_ID:
+                    textViewSitUpsRecord.setText(result);
+                    break;
+                default:
+                    break;
+            }
+        } else {
             return;
-        } else if (requestCode == 0) {
-            String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewPullUpsRecord.setText(result);
-        } else if (requestCode == 1) {
-            String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewPushUpsRecord.setText(result);
-        } else if (requestCode == 2) {
-            String result = data.getStringExtra(String.valueOf(R.string.record));
-            textViewSitUpsRecord.setText(result);
         }
     }
 
@@ -56,21 +65,21 @@ public class WorkoutListActivity extends AppCompatActivity {
         buttonPullUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startWorkoutDetailActivity(0);
+                startWorkoutDetailActivity(PULL_UPS_ID);
             }
         });
 
         buttonPushUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startWorkoutDetailActivity(1);
+                startWorkoutDetailActivity(PUSH_UPS_ID);
             }
         });
 
         buttonSitUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startWorkoutDetailActivity(2);
+                startWorkoutDetailActivity(SIT_UPS_ID);
             }
         });
     }
