@@ -56,28 +56,28 @@ public class WorkoutListActivity extends AppCompatActivity {
         buttonPullUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
-                startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 0);
-                startActivityForResult(startDetailActivity, 0);
+                startWorkoutDetailActivity(0);
             }
         });
 
         buttonPushUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
-                startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 1);
-                startActivityForResult(startDetailActivity, 1);
+                startWorkoutDetailActivity(1);
             }
         });
 
         buttonSitUps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
-                startDetailActivity.putExtra(Constants.WORKOUT_INDEX, 2);
-                startActivityForResult(startDetailActivity, 2);
+                startWorkoutDetailActivity(2);
             }
         });
+    }
+
+    private void startWorkoutDetailActivity(int i) {
+        Intent startDetailActivity = new Intent(WorkoutListActivity.this, WorkoutDetailActivity.class);
+        startDetailActivity.putExtra(Constants.WORKOUT_INDEX, i);
+        startActivityForResult(startDetailActivity, i);
     }
 }
