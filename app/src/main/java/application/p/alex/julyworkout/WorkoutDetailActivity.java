@@ -39,6 +39,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     private SeekBar repeatsSeekBar;
     private int recordRepeats;
     private String currentDateTimeString;
+    private Intent saveRecordIntent;
 
     private int workoutIndex;
 
@@ -52,8 +53,9 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
         iniUI(workoutIndex);
 
-        intent.putExtra(String.valueOf(R.string.record), record.getText().toString());
-        setResult(RESULT_OK, intent);
+        saveRecordIntent = new Intent();
+        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
+
     }
 
     private void iniUI(int workoutIndex) {
@@ -182,6 +184,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        setResult(RESULT_OK, saveRecordIntent);
         finish();
     }
 }
