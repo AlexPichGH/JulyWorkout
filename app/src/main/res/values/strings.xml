@@ -24,14 +24,6 @@
     <string name="null_repeats">Вы сделали ноль повторений</string>
     <string name="record_not_save">Вы не побили предыдущий рекорд</string>
     <string name="record_delete">Рекорд удалён</string>
-    
     <string name="todo">TODO</string>
-    <string name="on_create">onCreate()</string>
-    <string name="on_start">onStart()</string>
-    <string name="on_resume">onResume()</string>
-    <string name="on_pause">onPause()</string>
-    <string name="on_stop">onStop()</string>
-    <string name="on_destroy">onDestroy()</string>
-    <string name="on_restart">onRestart()</string>
 
 </resources>
