@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/JulyWorkoutTheme">
-        <activity android:name=".WorkoutDetailActivity"
+        <activity
+            android:name=".WorkoutDetailActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/JulyWorkoutTheme" />
-        <activity android:name=".WorkoutListActivity"
+        <activity
+            android:name=".WorkoutListActivity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/JulyWorkoutTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
