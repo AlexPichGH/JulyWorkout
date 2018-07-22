@@ -50,7 +50,7 @@ public class WorkoutListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, String.valueOf(R.string.on_create));
+        Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_workout_list);
 
         workoutList = WorkoutList.getInstance(this).getAllWorkouts();
@@ -87,37 +87,37 @@ public class WorkoutListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, String.valueOf(R.string.on_start));
+        Log.d(TAG, "onStart()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, String.valueOf(R.string.on_resume));
+        Log.d(TAG, "onResume()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, String.valueOf(R.string.on_pause));
+        Log.d(TAG, "onPause()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, String.valueOf(R.string.on_stop));
+        Log.d(TAG, "onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, String.valueOf(R.string.on_destroy));
+        Log.d(TAG, "onDestroy()");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, String.valueOf(R.string.on_restart));
+        Log.d(TAG, "onRestart()");
     }
 
     private void startWorkoutDetailActivity(int i) {
