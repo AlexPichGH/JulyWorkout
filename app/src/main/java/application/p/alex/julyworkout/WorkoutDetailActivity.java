@@ -22,9 +22,6 @@ import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
 
 public class WorkoutDetailActivity extends AppCompatActivity {
-    private static final String RECORD_PULL_UP_SAVE = "recordpullupsave";
-    private static final String RECORD_PUSH_UP_SAVE = "recordpushupsave";
-    private static final String RECORD_SIT_UP_SAVE = "recordsitupsave";
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
@@ -50,51 +47,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
-
-        checkSavedInstanceState(savedInstanceState);
         iniUI(workoutIndex);
-    }
-
-    private void checkSavedInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            switch (workoutIndex) {
-                case Constants.PULL_UPS_ID:
-                    recordRepeats = savedInstanceState.getInt(RECORD_PULL_UP_SAVE, 0);
-                    record.setText(String.valueOf(recordRepeats));
-                    break;
-                case Constants.PUSH_UPS_ID:
-                    recordRepeats = savedInstanceState.getInt(RECORD_PUSH_UP_SAVE, 0);
-                    record.setText(String.valueOf(recordRepeats));
-                    break;
-                case Constants.SIT_UPS_ID:
-                    recordRepeats = savedInstanceState.getInt(RECORD_SIT_UP_SAVE, 0);
-                    record.setText(String.valueOf(recordRepeats));
-                    break;
-                default:
-                    break;
-            }
-            currentDateTimeString = savedInstanceState.getString(LAST_RECORD_DATE);
-            currentDateAndTime.setText(currentDateTimeString);
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
-        switch (workoutIndex) {
-            case Constants.PULL_UPS_ID:
-                savedInstanceState.putInt(RECORD_PULL_UP_SAVE, recordRepeats);
-                break;
-            case Constants.PUSH_UPS_ID:
-                savedInstanceState.putInt(RECORD_PUSH_UP_SAVE, recordRepeats);
-                break;
-            case Constants.SIT_UPS_ID:
-                savedInstanceState.putInt(RECORD_SIT_UP_SAVE, recordRepeats);
-                break;
-            default:
-                break;
-        }
-        savedInstanceState.putString(LAST_RECORD_DATE, currentDateTimeString);
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     private void iniUI(int workoutIndex) {
@@ -140,13 +93,13 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
         switch (workoutIndex) {
             case Constants.PULL_UPS_ID:
-                myLastRecord = getSharedPreferences(RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
+                myLastRecord = getSharedPreferences(Constants.RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
                 break;
             case Constants.PUSH_UPS_ID:
-                myLastRecord = getSharedPreferences(RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
+                myLastRecord = getSharedPreferences(Constants.RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
                 break;
             case Constants.SIT_UPS_ID:
-                myLastRecord = getSharedPreferences(RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
+                myLastRecord = getSharedPreferences(Constants.RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
                 break;
             default:
                 break;
@@ -190,7 +143,6 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             recordRepeats = repeatsSeekBar.getProgress();
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
-
             saveRecord(recordRepeats, currentDateTimeString);
             Toast.makeText(WorkoutDetailActivity.this, R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
