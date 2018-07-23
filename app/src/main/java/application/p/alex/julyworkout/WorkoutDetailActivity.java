@@ -1,6 +1,8 @@
 package application.p.alex.julyworkout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -26,6 +28,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
+    private SharedPreferences myLastRecord;
     private TextView title;
     private TextView description;
     private TextView repsCount;
@@ -45,16 +48,11 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Intent intent = getIntent();
         workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
 
-        iniUI(workoutIndex);
-
-        saveRecordIntent = new Intent();
-        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
-
         checkSavedInstanceState(savedInstanceState);
+        iniUI(workoutIndex);
     }
 
     private void checkSavedInstanceState(Bundle savedInstanceState) {
@@ -62,23 +60,26 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             switch (workoutIndex) {
                 case Constants.PULL_UPS_ID:
                     recordRepeats = savedInstanceState.getInt(RECORD_PULL_UP_SAVE, 0);
+                    record.setText(String.valueOf(recordRepeats));
                     break;
                 case Constants.PUSH_UPS_ID:
                     recordRepeats = savedInstanceState.getInt(RECORD_PUSH_UP_SAVE, 0);
+                    record.setText(String.valueOf(recordRepeats));
                     break;
                 case Constants.SIT_UPS_ID:
                     recordRepeats = savedInstanceState.getInt(RECORD_SIT_UP_SAVE, 0);
+                    record.setText(String.valueOf(recordRepeats));
                     break;
                 default:
                     break;
             }
             currentDateTimeString = savedInstanceState.getString(LAST_RECORD_DATE);
+            currentDateAndTime.setText(currentDateTimeString);
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
         switch (workoutIndex) {
             case Constants.PULL_UPS_ID:
                 savedInstanceState.putInt(RECORD_PULL_UP_SAVE, recordRepeats);
@@ -93,6 +94,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
                 break;
         }
         savedInstanceState.putString(LAST_RECORD_DATE, currentDateTimeString);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     private void iniUI(int workoutIndex) {
@@ -135,6 +137,24 @@ public class WorkoutDetailActivity extends AppCompatActivity {
                 showPopUpMenu(view);
             }
         });
+
+        switch (workoutIndex) {
+            case Constants.PULL_UPS_ID:
+                myLastRecord = getSharedPreferences(RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
+                break;
+            case Constants.PUSH_UPS_ID:
+                myLastRecord = getSharedPreferences(RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
+                break;
+            case Constants.SIT_UPS_ID:
+                myLastRecord = getSharedPreferences(RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
+                break;
+            default:
+                break;
+        }
+        if (myLastRecord.contains(LAST_RECORD_REPEATS) && myLastRecord.contains(LAST_RECORD_DATE)) {
+            record.setText(String.valueOf(myLastRecord.getInt(LAST_RECORD_REPEATS, recordRepeats)));
+            currentDateAndTime.setText(myLastRecord.getString(LAST_RECORD_DATE, currentDateTimeString));
+        }
     }
 
     private void showPopUpMenu(View view) {
@@ -170,6 +190,8 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             recordRepeats = repeatsSeekBar.getProgress();
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
+
+            saveRecord(recordRepeats, currentDateTimeString);
             Toast.makeText(WorkoutDetailActivity.this, R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
             Toast.makeText(WorkoutDetailActivity.this, R.string.null_repeats, Toast.LENGTH_SHORT).show();
@@ -178,7 +200,17 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void saveRecord(int record, String currentDateTimeString) {
+        SharedPreferences.Editor editor = myLastRecord.edit();
+        editor.putInt(LAST_RECORD_REPEATS, record);
+        editor.putString(LAST_RECORD_DATE, currentDateTimeString);
+        editor.apply();
+    }
+
     private void deleteRecord() {
+        SharedPreferences.Editor editor = myLastRecord.edit();
+        editor.clear();
+        editor.apply();
         record.setText("");
         currentDateAndTime.setText("");
         Toast.makeText(WorkoutDetailActivity.this, R.string.record_delete, Toast.LENGTH_SHORT).show();
@@ -195,6 +227,8 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        saveRecordIntent = new Intent();
+        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
         setResult(RESULT_OK, saveRecordIntent);
         finish();
     }
