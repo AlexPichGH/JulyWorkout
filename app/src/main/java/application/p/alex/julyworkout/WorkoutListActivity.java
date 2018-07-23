@@ -25,19 +25,26 @@ public class WorkoutListActivity extends AppCompatActivity {
     private TextView textViewPushUpsRecord;
     private TextView textViewSitUpsRecord;
 
+    private String pullUpResult;
+    private String pushUpResult;
+    private String sitUpResult;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data != null && resultCode == RESULT_OK) {
             String result = data.getStringExtra(String.valueOf(R.string.record));
             switch (requestCode) {
                 case Constants.PULL_UPS_ID:
-                    textViewPullUpsRecord.setText(result);
+                    pullUpResult = result;
+                    textViewPullUpsRecord.setText(pullUpResult);
                     break;
                 case Constants.PUSH_UPS_ID:
-                    textViewPushUpsRecord.setText(result);
+                    pushUpResult = result;
+                    textViewPushUpsRecord.setText(pushUpResult);
                     break;
                 case Constants.SIT_UPS_ID:
-                    textViewSitUpsRecord.setText(result);
+                    sitUpResult = result;
+                    textViewSitUpsRecord.setText(sitUpResult);
                     break;
                 default:
                     break;
@@ -82,6 +89,23 @@ public class WorkoutListActivity extends AppCompatActivity {
                 startWorkoutDetailActivity(Constants.SIT_UPS_ID);
             }
         });
+
+        if (savedInstanceState != null) {
+            pullUpResult = savedInstanceState.getString(Constants.RECORD_PULL_UP_SAVE);
+            textViewPullUpsRecord.setText(pullUpResult);
+            pushUpResult = savedInstanceState.getString(Constants.RECORD_PUSH_UP_SAVE);
+            textViewPushUpsRecord.setText(pushUpResult);
+            sitUpResult = savedInstanceState.getString(Constants.RECORD_SIT_UP_SAVE);
+            textViewSitUpsRecord.setText(sitUpResult);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(Constants.RECORD_PULL_UP_SAVE, pullUpResult);
+        savedInstanceState.putString(Constants.RECORD_PUSH_UP_SAVE, pushUpResult);
+        savedInstanceState.putString(Constants.RECORD_SIT_UP_SAVE, sitUpResult);
     }
 
     @Override
