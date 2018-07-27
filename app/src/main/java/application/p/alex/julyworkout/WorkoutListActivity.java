@@ -18,9 +18,9 @@ import application.p.alex.julyworkout.utils.Constants;
 public class WorkoutListActivity extends AppCompatActivity {
     private static final String TAG = "WorkoutListActivity";
     private List<Workout> workoutList;
-    private Button buttonPullUps;
-    private Button buttonPushUps;
-    private Button buttonSitUps;
+//    private Button buttonPullUps;
+//    private Button buttonPushUps;
+//    private Button buttonSitUps;
     private TextView textViewPullUpsRecord;
     private TextView textViewPushUpsRecord;
     private TextView textViewSitUpsRecord;
@@ -58,37 +58,37 @@ public class WorkoutListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
-        setContentView(R.layout.activity_workout_list);
+        setContentView(R.layout.list_item);
 
         workoutList = WorkoutList.getInstance(this).getAllWorkouts();
 
-        buttonPullUps = findViewById(R.id.button_pull_ups);
-        buttonPushUps = findViewById(R.id.button_push_ups);
-        buttonSitUps = findViewById(R.id.button_sit_ups);
+//        buttonPullUps = findViewById(R.id.button_pull_ups);
+//        buttonPushUps = findViewById(R.id.button_push_ups);
+//        buttonSitUps = findViewById(R.id.button_sit_ups);
         textViewPullUpsRecord = findViewById(R.id.workout_list_record_pull_ups);
         textViewPushUpsRecord = findViewById(R.id.workout_list_record_push_ups);
         textViewSitUpsRecord = findViewById(R.id.workout_list_record_sit_ups);
 
-        buttonPullUps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startWorkoutDetailActivity(Constants.PULL_UPS_ID);
-            }
-        });
-
-        buttonPushUps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startWorkoutDetailActivity(Constants.PUSH_UPS_ID);
-            }
-        });
-
-        buttonSitUps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startWorkoutDetailActivity(Constants.SIT_UPS_ID);
-            }
-        });
+//        buttonPullUps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startWorkoutDetailActivity(Constants.PULL_UPS_ID);
+//            }
+//        });
+//
+//        buttonPushUps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startWorkoutDetailActivity(Constants.PUSH_UPS_ID);
+//            }
+//        });
+//
+//        buttonSitUps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startWorkoutDetailActivity(Constants.SIT_UPS_ID);
+//            }
+//        });
 
         if (savedInstanceState != null) {
             pullUpResult = savedInstanceState.getString(Constants.RECORD_PULL_UP_SAVE);
