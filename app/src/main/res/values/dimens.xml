@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="layout_margin_16dp">16dp</dimen>
+    <dimen name="layout_margin_12dp">12dp</dimen>
+    <dimen name="layout_margin_8dp">8dp</dimen>
+    <dimen name="layout_margin_4dp">4dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+
+    <dimen name="text_small_font">12sp</dimen>
+    <dimen name="text_medium_font">14sp</dimen>
+    <dimen name="text_high_medium_font">16sp</dimen>
+    <dimen name="text_large_font">18sp</dimen>
+    <dimen name="text_medium_headline">24sp</dimen>
+    <dimen name="text_big_headline">36sp</dimen>
+</resources>
