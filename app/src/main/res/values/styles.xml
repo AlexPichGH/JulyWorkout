@@ -9,8 +9,23 @@
     </style>
 
     <style name="JulyWorkoutTheme" parent="AppTheme" >
-        <item name="android:colorBackground">@color/background_material_light</item>
-        <item name="android:colorForeground">@color/foreground_material_light</item>
+        <item name="android:colorBackground">@color/color_white</item>
+        <item name="android:colorForeground">@color/color_black</item>
     </style>
 
+    <style name="ListItemRecordStyle">
+        <item name="android:layout_marginLeft">@dimen/layout_margin_4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">@dimen/padding_4dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="ListItemTextViewStyle">
+        <item name="android:layout_marginLeft">@dimen/layout_margin_4dp</item>
+        <item name="android:layout_marginRight">@dimen/layout_margin_4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">@dimen/padding_4dp</item>
+        <item name="android:paddingRight">@dimen/padding_4dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
 </resources>
