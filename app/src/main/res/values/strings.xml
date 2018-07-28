@@ -25,5 +25,6 @@
     <string name="record_not_save">Вы не побили предыдущий рекорд</string>
     <string name="record_delete">Рекорд удалён</string>
     <string name="todo">TODO</string>
+    <string name="num_null">0</string>
 
 </resources>
