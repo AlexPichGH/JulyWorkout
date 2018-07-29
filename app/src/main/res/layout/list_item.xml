@@ -2,10 +2,10 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="4dp">
+    android:layout_marginBottom="@dimen/layout_margin_4dp"
+    android:layout_marginLeft="@dimen/layout_margin_16dp"
+    android:layout_marginRight="@dimen/layout_margin_16dp"
+    android:layout_marginTop="@dimen/layout_margin_4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,28 +14,24 @@
         <ImageView
             android:id="@+id/list_item_image"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="4dp"
-            android:background="@mipmap/push_up_preview"
-            android:contentDescription="@string/todo" />
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_margin_4dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/push_up_preview" />
 
         <TextView
             android:id="@+id/list_item_title"
+            style="@style/ListItemTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/list_item_image"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:background="@color/color_grey"
-            android:ellipsize="end"
             android:maxLines="2"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingBottom="@dimen/padding_2dp"
             android:text="@string/push_ups"
             android:textColor="@color/color_white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_large_font"
             android:textStyle="bold" />
 
         <ImageView
@@ -44,58 +40,58 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/layout_margin_4dp"
+            android:layout_marginRight="@dimen/layout_margin_4dp"
+            android:layout_marginTop="@dimen/layout_margin_8dp"
             android:contentDescription="@string/todo"
-            android:layout_marginTop="4dp"
             android:src="@drawable/ic_more_vert_white_24dp" />
 
         <TextView
             android:id="@+id/list_item_description"
+            style="@style/ListItemTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/list_item_image"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:ellipsize="end"
             android:maxLines="4"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
             android:text="@string/push_up_description"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_medium_font" />
 
         <View
             android:id="@+id/horizontal_separator"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_below="@id/list_item_description"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/layout_margin_4dp"
+            android:layout_marginLeft="@dimen/layout_margin_8dp"
+            android:layout_marginRight="@dimen/layout_margin_8dp"
+            android:layout_marginTop="@dimen/layout_margin_4dp"
             android:background="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/horizontal_separator"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginBottom="@dimen/layout_margin_4dp"
+            android:layout_marginLeft="@dimen/layout_margin_4dp"
+            android:layout_marginRight="@dimen/layout_margin_4dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/list_item_record_date"
+                style="@style/ListItemRecordStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_calendar_black"
+                android:drawableStart="@drawable/ic_calendar_black"
                 android:text="27.07.2018" />
 
             <TextView
                 android:id="@+id/list_item_record_repeats"
+                style="@style/ListItemRecordStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_rewards_trophy_black"
+                android:drawableStart="@drawable/ic_rewards_trophy_black"
                 android:text="20" />
         </LinearLayout>
 
