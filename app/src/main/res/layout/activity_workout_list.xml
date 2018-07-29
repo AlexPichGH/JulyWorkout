@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WorkoutListLayoutMargin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/layout_margin_4dp"
-    android:layout_marginLeft="@dimen/layout_margin_16dp"
-    android:layout_marginRight="@dimen/layout_margin_16dp"
-    android:layout_marginTop="@dimen/layout_margin_4dp"
     android:orientation="vertical">
-
-
+    
     <Button
         android:id="@+id/button_pull_ups"
         android:layout_width="match_parent"
@@ -83,20 +79,17 @@
     </LinearLayout>
 
     <RelativeLayout
+        style="@style/WorkoutListLayoutMargin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/layout_margin_4dp"
-        android:layout_marginLeft="@dimen/layout_margin_16dp"
-        android:layout_marginRight="@dimen/layout_margin_16dp"
-        android:layout_marginTop="@dimen/layout_margin_4dp">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/workout_list_check_box_show_record"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/layout_margin_8dp"
-            android:text="@string/check_box_record"
-            android:layout_alignParentBottom="true"/>
+            android:text="@string/check_box_record" />
     </RelativeLayout>
 
 </LinearLayout>
