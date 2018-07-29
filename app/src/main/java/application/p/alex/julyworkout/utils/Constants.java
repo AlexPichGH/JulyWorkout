@@ -6,6 +6,7 @@ public interface Constants {
     String RECORD_PULL_UP_SAVE = "recordpullupsave";
     String RECORD_PUSH_UP_SAVE = "recordpushupsave";
     String RECORD_SIT_UP_SAVE = "recordsitupsave";
+    String RECORD_SHOW = "recordshow";
     int PULL_UPS_ID = 0;
     int PUSH_UPS_ID = 1;
     int SIT_UPS_ID = 2;
