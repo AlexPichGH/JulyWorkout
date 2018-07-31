@@ -4,92 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
-    <Button
-        android:id="@+id/button_pull_ups"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/workout_list_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_margin_8dp"
-        android:text="@string/pull_ups" />
-
-    <LinearLayout
-        android:id="@+id/layout_record_pull_ups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/workout_list_record_pull_ups_w"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/layout_margin_8dp"
-            android:layout_marginRight="@dimen/layout_margin_8dp" />
-
-        <TextView
-            android:id="@+id/workout_list_record_pull_ups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_push_ups"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/push_ups" />
-
-    <LinearLayout
-        android:id="@+id/layout_record_push_ups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/workout_list_record_push_ups_w"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/layout_margin_8dp"
-            android:layout_marginRight="@dimen/layout_margin_8dp" />
-
-        <TextView
-            android:id="@+id/workout_list_record_push_ups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button_sit_ups"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sit_ups" />
-
-    <LinearLayout
-        android:id="@+id/layout_record_sit_ups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/workout_list_record_sit_ups_w"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/layout_margin_8dp"
-            android:layout_marginRight="@dimen/layout_margin_8dp" />
-
-        <TextView
-            android:id="@+id/workout_list_record_sit_ups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <RelativeLayout
-        style="@style/WorkoutListLayoutMargin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <CheckBox
-            android:id="@+id/workout_list_check_box_show_record"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/layout_margin_8dp"
-            android:text="@string/check_box_record" />
-    </RelativeLayout>
-
+        android:layout_height="match_parent" />
 </LinearLayout>
