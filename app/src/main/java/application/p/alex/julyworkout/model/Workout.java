@@ -6,16 +6,18 @@ public class Workout {
     private String title;
     private String description;
     private int imageResRef;
+    private int imagePreview;
     private String difficult;
     private int repeatsCount;
     private int lastRecordRepeats;
     private Date lastRecordDate;
-    private long executingTime;
+    private String executingTime;
+    private boolean isFavorite;
 
     public Workout() {
     }
 
-    public Workout(String title, String description, String difficult, int repeatsCount, long executingTime) {
+    public Workout(String title, String description, String difficult, int repeatsCount, String executingTime) {
         this.title = title;
         this.description = description;
         this.difficult = difficult;
@@ -23,13 +25,22 @@ public class Workout {
         this.executingTime = executingTime;
     }
 
-    public Workout(String title, String description, int imageResRef, String difficult, int repeatsCount, long executingTime) {
+    public Workout(String title, String description, int imageResRef, int imagePreview, String difficult, String executingTime) {
         this.title = title;
         this.description = description;
         this.imageResRef = imageResRef;
+        this.imagePreview = imagePreview;
         this.difficult = difficult;
-        this.repeatsCount = repeatsCount;
         this.executingTime = executingTime;
+        this.isFavorite = false;
+    }
+
+    public int getImagePreview() {
+        return imagePreview;
+    }
+
+    public void setImagePreview(int imagePreview) {
+        this.imagePreview = imagePreview;
     }
 
     public String getTitle() {
@@ -80,11 +91,11 @@ public class Workout {
         this.lastRecordDate = lastRecordDate;
     }
 
-    public long getExecutingTime() {
+    public String getExecutingTime() {
         return executingTime;
     }
 
-    public void setExecutingTime(long executingTime) {
+    public void setExecutingTime(String executingTime) {
         this.executingTime = executingTime;
     }
 
@@ -94,5 +105,13 @@ public class Workout {
 
     public void setImageResRef(int imageResRef) {
         this.imageResRef = imageResRef;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }
