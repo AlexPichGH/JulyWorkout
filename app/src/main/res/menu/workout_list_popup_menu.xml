@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/workout_detail_popup_save"
-        android:title="@string/save" >
-    </item>
-    <item
-        android:id="@+id/workout_detail_popup_delete"
-        android:title="@string/delete" >
-    </item>
-    <item
-        android:id="@+id/workout_detail_popup_share"
-        android:title="@string/share" >
+        android:id="@+id/workout_list_popup_favorites"
+        android:title="@string/favorites" >
     </item>
 </menu>
