@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/workout_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/layout_margin_4dp"
@@ -17,8 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/layout_margin_4dp"
             android:contentDescription="@string/todo"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/push_up_preview" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/list_item_difficult"
@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_margin_8dp"
-            android:text="V"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_large_font"
             android:textStyle="bold" />
@@ -45,6 +44,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/list_item_executing_time"
             style="@style/ListItemTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,23 +52,22 @@
             android:layout_alignParentRight="true"
             android:drawableLeft="@drawable/ic_timer_white_24dp"
             android:drawableStart="@drawable/ic_timer_white_24dp"
-            android:text="00:05:00"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_medium_font"
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/list_item_popup_menu"
+            android:id="@+id/list_item_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="@dimen/layout_margin_4dp"
-            android:layout_marginRight="@dimen/layout_margin_4dp"
+            android:layout_marginEnd="@dimen/layout_margin_8dp"
+            android:layout_marginRight="@dimen/layout_margin_8dp"
             android:layout_marginTop="@dimen/layout_margin_8dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/ic_more_vert_white_24dp" />
+            android:src="@drawable/ic_favorite_off_24dp"/>
 
         <TextView
             android:id="@+id/list_item_description"

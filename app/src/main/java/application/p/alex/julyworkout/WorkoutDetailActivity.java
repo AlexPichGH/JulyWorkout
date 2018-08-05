@@ -1,8 +1,6 @@
 package application.p.alex.julyworkout;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -25,26 +23,28 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
-    private SharedPreferences myLastRecord;
+    //    private SharedPreferences myLastRecord;
     private TextView title;
     private TextView description;
     private TextView repsCount;
+    private TextView executingTime;
     private TextView difficult;
     private TextView record;
     private TextView currentDateAndTime;
     private ImageView imageView;
     private ImageView popupMenu;
     private SeekBar repeatsSeekBar;
+
+    private int workoutIndex;
     private int recordRepeats;
     private String currentDateTimeString;
     private Intent saveRecordIntent;
-
-    private int workoutIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Intent intent = getIntent();
         workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
         iniUI(workoutIndex);
@@ -58,6 +58,8 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         description.setText(workout.getDescription());
         repsCount = findViewById(R.id.workout_detail_repeats_count);
         repsCount.setText(String.valueOf(workout.getRepeatsCount()));
+        executingTime = findViewById(R.id.workout_detail_time);
+        executingTime.setText(workout.getExecutingTime());
         difficult = findViewById(R.id.workout_detail_difficult);
         difficult.setText(workout.getDifficult());
         record = findViewById(R.id.workout_detail_record);
@@ -91,23 +93,23 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             }
         });
 
-        switch (workoutIndex) {
-            case Constants.PULL_UPS_ID:
-                myLastRecord = getSharedPreferences(Constants.RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
-                break;
-            case Constants.PUSH_UPS_ID:
-                myLastRecord = getSharedPreferences(Constants.RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
-                break;
-            case Constants.SIT_UPS_ID:
-                myLastRecord = getSharedPreferences(Constants.RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
-                break;
-            default:
-                break;
-        }
-        if (myLastRecord.contains(LAST_RECORD_REPEATS) && myLastRecord.contains(LAST_RECORD_DATE)) {
-            record.setText(String.valueOf(myLastRecord.getInt(LAST_RECORD_REPEATS, recordRepeats)));
-            currentDateAndTime.setText(myLastRecord.getString(LAST_RECORD_DATE, currentDateTimeString));
-        }
+//        switch (workoutIndex) {
+//            case Constants.PULL_UPS_ID:
+//                myLastRecord = getSharedPreferences(Constants.RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
+//                break;
+//            case Constants.PUSH_UPS_ID:
+//                myLastRecord = getSharedPreferences(Constants.RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
+//                break;
+//            case Constants.SIT_UPS_ID:
+//                myLastRecord = getSharedPreferences(Constants.RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
+//                break;
+//            default:
+//                break;
+//        }
+//        if (myLastRecord.contains(LAST_RECORD_REPEATS) && myLastRecord.contains(LAST_RECORD_DATE)) {
+//            record.setText(String.valueOf(myLastRecord.getInt(LAST_RECORD_REPEATS, recordRepeats)));
+//            currentDateAndTime.setText(myLastRecord.getString(LAST_RECORD_DATE, currentDateTimeString));
+//        }
     }
 
     private void showPopUpMenu(View view) {
@@ -143,7 +145,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             recordRepeats = repeatsSeekBar.getProgress();
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
-            saveRecord(recordRepeats, currentDateTimeString);
+//            saveRecord(recordRepeats, currentDateTimeString);
             Toast.makeText(WorkoutDetailActivity.this, R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
             Toast.makeText(WorkoutDetailActivity.this, R.string.null_repeats, Toast.LENGTH_SHORT).show();
@@ -152,17 +154,17 @@ public class WorkoutDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void saveRecord(int record, String currentDateTimeString) {
-        SharedPreferences.Editor editor = myLastRecord.edit();
-        editor.putInt(LAST_RECORD_REPEATS, record);
-        editor.putString(LAST_RECORD_DATE, currentDateTimeString);
-        editor.apply();
-    }
+//    private void saveRecord(int record, String currentDateTimeString) {
+//        SharedPreferences.Editor editor = myLastRecord.edit();
+//        editor.putInt(LAST_RECORD_REPEATS, record);
+//        editor.putString(LAST_RECORD_DATE, currentDateTimeString);
+//        editor.apply();
+//    }
 
     private void deleteRecord() {
-        SharedPreferences.Editor editor = myLastRecord.edit();
-        editor.clear();
-        editor.apply();
+//        SharedPreferences.Editor editor = myLastRecord.edit();
+//        editor.clear();
+//        editor.apply();
         record.setText("");
         currentDateAndTime.setText("");
         Toast.makeText(WorkoutDetailActivity.this, R.string.record_delete, Toast.LENGTH_SHORT).show();
