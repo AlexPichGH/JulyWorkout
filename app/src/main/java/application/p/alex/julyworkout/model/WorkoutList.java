@@ -53,28 +53,28 @@ public class WorkoutList {
 
         Workout workoutPullUps = new Workout(context.getString(R.string.pull_ups),
                 context.getString(R.string.pull_up_description), R.mipmap.pull_up, R.mipmap.pull_up_preview,
-                context.getString(R.string.difficult_hard), "00:05:00");
+                context.getString(R.string.difficult_hard), context.getString(R.string.time_five_min));
         Workout workoutPushUps = new Workout(context.getString(R.string.push_ups),
                 context.getString(R.string.push_up_description), R.mipmap.push_up, R.mipmap.push_up_preview,
-                context.getString(R.string.difficult_medium), "00:05:00");
+                context.getString(R.string.difficult_medium), context.getString(R.string.time_five_min));
         Workout workoutSitUps = new Workout(context.getString(R.string.sit_ups),
                 context.getString(R.string.sit_up_description), R.mipmap.squats, R.mipmap.squats_prewiew,
-                context.getString(R.string.difficult_medium), "00:05:00");
+                context.getString(R.string.difficult_medium), context.getString(R.string.time_five_min));
         Workout workoutRunning = new Workout(context.getString(R.string.running),
                 context.getString(R.string.running_description), R.mipmap.run_preview, R.mipmap.run_preview,
-                context.getString(R.string.difficult_hard), "00:15:00");
+                context.getString(R.string.difficult_hard), context.getString(R.string.time_fifteen_min));
         Workout workoutBar = new Workout(context.getString(R.string.bar),
                 context.getString(R.string.bar_description), R.mipmap.bar, R.mipmap.bar_prewiew,
-                context.getString(R.string.difficult_hard), "00:01:30");
+                context.getString(R.string.difficult_hard), context.getString(R.string.time_one_half_min));
         Workout workoutSideBar = new Workout(context.getString(R.string.side_bar),
                 context.getString(R.string.side_bar_description), R.mipmap.side_bar, R.mipmap.side_bar_preview,
-                context.getString(R.string.difficult_medium), "00:00:30");
+                context.getString(R.string.difficult_medium), context.getString(R.string.time_thirthy_sec));
         Workout workoutLunge = new Workout(context.getString(R.string.lunge),
                 context.getString(R.string.lunge_description), R.mipmap.lunge, R.mipmap.lunge_preview,
-                context.getString(R.string.difficult_easy), "00:07:00");
+                context.getString(R.string.difficult_easy), context.getString(R.string.time_seven_min));
         Workout workoutCrunch = new Workout(context.getString(R.string.crunch),
                 context.getString(R.string.crunch_description), R.mipmap.crunch, R.mipmap.crunch_preview,
-                context.getString(R.string.difficult_medium), "00:07:00");
+                context.getString(R.string.difficult_medium), context.getString(R.string.time_seven_min));
 
         workouts.add(workoutPullUps);
         workouts.add(workoutPushUps);
