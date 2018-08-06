@@ -10,11 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/JulyWorkoutTheme">
         <activity
-            android:name=".WorkoutDetailActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/JulyWorkoutTheme" />
-        <activity
-            android:name=".WorkoutListActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/JulyWorkoutTheme">
             <intent-filter>
@@ -23,10 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".WorkoutFavoritesActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/JulyWorkoutTheme"/>
     </application>
 
 </manifest>
