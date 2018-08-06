@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".WorkoutDetailActivity">
+        tools:context=".WorkoutDetailFragment">
 
         <TextView
             android:id="@+id/workout_detail_title"
