@@ -2,9 +2,13 @@ package application.p.alex.julyworkout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
@@ -19,7 +23,7 @@ import application.p.alex.julyworkout.model.Workout;
 import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
 
-public class WorkoutDetailActivity extends AppCompatActivity {
+public class WorkoutDetailFragment extends Fragment {
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
@@ -40,33 +44,46 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     private String currentDateTimeString;
     private Intent saveRecordIntent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_detail);
-
-        Intent intent = getIntent();
-        workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
-        iniUI(workoutIndex);
+    public static WorkoutDetailFragment initFragment(int workoutIndex) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(Constants.WORKOUT_INDEX, workoutIndex);
+        WorkoutDetailFragment fragment = new WorkoutDetailFragment();
+        fragment.setArguments(arguments);
+        return fragment;
     }
 
-    private void iniUI(int workoutIndex) {
-        Workout workout = WorkoutList.getInstance(this).getWorkout(workoutIndex);
-        title = findViewById(R.id.workout_detail_title);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_workout_detail, container, false);
+        assert getArguments() != null;
+        workoutIndex = getArguments().getInt(Constants.WORKOUT_INDEX);
+        iniUI(root);
+        return root;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    private void iniUI(View root) {
+        Workout workout = WorkoutList.getInstance(getContext()).getWorkout(workoutIndex);
+        title = root.findViewById(R.id.workout_detail_title);
         title.setText(workout.getTitle());
-        description = findViewById(R.id.workout_detail_description);
+        description = root.findViewById(R.id.workout_detail_description);
         description.setText(workout.getDescription());
-        repsCount = findViewById(R.id.workout_detail_repeats_count);
+        repsCount = root.findViewById(R.id.workout_detail_repeats_count);
         repsCount.setText(String.valueOf(workout.getRepeatsCount()));
-        executingTime = findViewById(R.id.workout_detail_time);
+        executingTime = root.findViewById(R.id.workout_detail_time);
         executingTime.setText(workout.getExecutingTime());
-        difficult = findViewById(R.id.workout_detail_difficult);
+        difficult = root.findViewById(R.id.workout_detail_difficult);
         difficult.setText(workout.getDifficult());
-        record = findViewById(R.id.workout_detail_record);
-        currentDateAndTime = findViewById(R.id.workout_detail_current_date_time);
-        imageView = findViewById(R.id.workout_detail_image);
+        record = root.findViewById(R.id.workout_detail_record);
+        currentDateAndTime = root.findViewById(R.id.workout_detail_current_date_time);
+        imageView = root.findViewById(R.id.workout_detail_image);
         imageView.setImageResource(workout.getImageResRef());
-        repeatsSeekBar = findViewById(R.id.workout_detail_seek_bar);
+        repeatsSeekBar = root.findViewById(R.id.workout_detail_seek_bar);
         repeatsSeekBar.setProgress(workout.getRepeatsCount());
         repeatsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -85,7 +102,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             }
         });
 
-        popupMenu = findViewById(R.id.workout_detail_popup_menu);
+        popupMenu = root.findViewById(R.id.workout_detail_popup_menu);
         popupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +130,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     }
 
     private void showPopUpMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
         popupMenu.inflate(R.menu.workout_detail_popup_menu);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -146,11 +163,11 @@ public class WorkoutDetailActivity extends AppCompatActivity {
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
 //            saveRecord(recordRepeats, currentDateTimeString);
-            Toast.makeText(WorkoutDetailActivity.this, R.string.record_save, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
-            Toast.makeText(WorkoutDetailActivity.this, R.string.null_repeats, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.null_repeats, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(WorkoutDetailActivity.this, R.string.record_not_save, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.record_not_save, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,23 +184,23 @@ public class WorkoutDetailActivity extends AppCompatActivity {
 //        editor.apply();
         record.setText("");
         currentDateAndTime.setText("");
-        Toast.makeText(WorkoutDetailActivity.this, R.string.record_delete, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.record_delete, Toast.LENGTH_SHORT).show();
     }
 
     private void shareRecord() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, (Constants.RECORD_MSG + record.getText()));
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             startActivity(intent);
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        saveRecordIntent = new Intent();
-        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
-        setResult(RESULT_OK, saveRecordIntent);
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        saveRecordIntent = new Intent();
+//        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
+//        setResult(RESULT_OK, saveRecordIntent);
+//        finish();
+//    }
 }
