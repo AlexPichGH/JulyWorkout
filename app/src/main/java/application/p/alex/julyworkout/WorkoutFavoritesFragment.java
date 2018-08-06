@@ -15,7 +15,7 @@ public class WorkoutFavoritesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_favorites);
+        setContentView(R.layout.fragment_workout_favorites);
 
         workoutRecycler = findViewById(R.id.workout_favorites_recycler);
         favoriteWorkoutAdapter = new FavoriteWorkoutAdapter(this, WorkoutList.getInstance(this).getFavoriteWorkouts());
