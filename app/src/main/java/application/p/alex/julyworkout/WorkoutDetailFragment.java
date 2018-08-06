@@ -43,7 +43,7 @@ public class WorkoutDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_workout_detail);
 
         Intent intent = getIntent();
         workoutIndex = intent.getIntExtra(Constants.WORKOUT_INDEX, 0);
