@@ -1,5 +1,6 @@
 package application.p.alex.julyworkout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListener;
 import application.p.alex.julyworkout.list.WorkoutAdapter;
 import application.p.alex.julyworkout.model.WorkoutList;
 
 public class WorkoutListFragment extends Fragment {
+    OnWorkoutListItemSelectedListener itemSelectedListener;
     private RecyclerView workoutRecycler;
     private WorkoutAdapter workoutAdapter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        itemSelectedListener = (OnWorkoutListItemSelectedListener) context;
+    }
 
     @Nullable
     @Override
@@ -32,5 +41,15 @@ public class WorkoutListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        workoutAdapter.notifyDataSetChanged();
+    }
+
+    public void refreshList() {
+        workoutAdapter.notifyDataSetChanged();
     }
 }
