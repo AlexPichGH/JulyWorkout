@@ -1,5 +1,6 @@
 package application.p.alex.julyworkout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListener;
 import application.p.alex.julyworkout.model.Workout;
 import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
@@ -27,6 +29,7 @@ public class WorkoutDetailFragment extends Fragment {
     private static final String LAST_RECORD_REPEATS = "lastrecord";
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
+    OnWorkoutListItemSelectedListener itemSelectedListener;
     //    private SharedPreferences myLastRecord;
     private TextView title;
     private TextView description;
@@ -52,12 +55,16 @@ public class WorkoutDetailFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        itemSelectedListener = (OnWorkoutListItemSelectedListener) context;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout_detail, container, false);
-        assert getArguments() != null;
-        workoutIndex = getArguments().getInt(Constants.WORKOUT_INDEX);
         iniUI(root);
         return root;
     }
@@ -65,6 +72,8 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getArguments() != null;
+        workoutIndex = getArguments().getInt(Constants.WORKOUT_INDEX);
     }
 
     private void iniUI(View root) {
