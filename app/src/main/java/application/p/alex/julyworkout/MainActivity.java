@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import application.p.alex.julyworkout.fragments.WorkoutDetailFragment;
+import application.p.alex.julyworkout.fragments.WorkoutFavoritesFragment;
+import application.p.alex.julyworkout.fragments.WorkoutListFragment;
 import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListener;
 import application.p.alex.julyworkout.interfaces.RefreshWorkoutListListener;
 import application.p.alex.julyworkout.model.WorkoutList;
