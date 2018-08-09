@@ -171,6 +171,9 @@ public class WorkoutDetailFragment extends Fragment {
             recordRepeats = repeatsSeekBar.getProgress();
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
+
+
+
 //            saveRecord(recordRepeats, currentDateTimeString);
             Toast.makeText(getContext(), R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
