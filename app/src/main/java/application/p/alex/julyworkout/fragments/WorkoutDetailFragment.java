@@ -1,4 +1,4 @@
-package application.p.alex.julyworkout;
+package application.p.alex.julyworkout.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import application.p.alex.julyworkout.R;
 import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListener;
 import application.p.alex.julyworkout.model.Workout;
 import application.p.alex.julyworkout.model.WorkoutList;
@@ -30,7 +32,7 @@ public class WorkoutDetailFragment extends Fragment {
     private static final String LAST_RECORD_DATE = "lastrecorddate";
     private static final int NULL_REPEATS = 0;
     OnWorkoutListItemSelectedListener itemSelectedListener;
-    //    private SharedPreferences myLastRecord;
+
     private TextView title;
     private TextView description;
     private TextView repsCount;
@@ -45,7 +47,6 @@ public class WorkoutDetailFragment extends Fragment {
     private int workoutIndex;
     private int recordRepeats;
     private String currentDateTimeString;
-    private Intent saveRecordIntent;
 
     public static WorkoutDetailFragment initFragment(int workoutIndex) {
         Bundle arguments = new Bundle();
@@ -66,6 +67,7 @@ public class WorkoutDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout_detail, container, false);
         iniUI(root);
+        initTimerFragment();
         return root;
     }
 
@@ -85,7 +87,6 @@ public class WorkoutDetailFragment extends Fragment {
         repsCount = root.findViewById(R.id.workout_detail_repeats_count);
         repsCount.setText(String.valueOf(workout.getRepeatsCount()));
         executingTime = root.findViewById(R.id.workout_detail_time);
-        executingTime.setText(workout.getExecutingTime());
         difficult = root.findViewById(R.id.workout_detail_difficult);
         difficult.setText(workout.getDifficult());
         record = root.findViewById(R.id.workout_detail_record);
@@ -119,23 +120,6 @@ public class WorkoutDetailFragment extends Fragment {
             }
         });
 
-//        switch (workoutIndex) {
-//            case Constants.PULL_UPS_ID:
-//                myLastRecord = getSharedPreferences(Constants.RECORD_PULL_UP_SAVE, Context.MODE_PRIVATE);
-//                break;
-//            case Constants.PUSH_UPS_ID:
-//                myLastRecord = getSharedPreferences(Constants.RECORD_PUSH_UP_SAVE, Context.MODE_PRIVATE);
-//                break;
-//            case Constants.SIT_UPS_ID:
-//                myLastRecord = getSharedPreferences(Constants.RECORD_SIT_UP_SAVE, Context.MODE_PRIVATE);
-//                break;
-//            default:
-//                break;
-//        }
-//        if (myLastRecord.contains(LAST_RECORD_REPEATS) && myLastRecord.contains(LAST_RECORD_DATE)) {
-//            record.setText(String.valueOf(myLastRecord.getInt(LAST_RECORD_REPEATS, recordRepeats)));
-//            currentDateAndTime.setText(myLastRecord.getString(LAST_RECORD_DATE, currentDateTimeString));
-//        }
     }
 
     private void showPopUpMenu(View view) {
@@ -171,10 +155,6 @@ public class WorkoutDetailFragment extends Fragment {
             recordRepeats = repeatsSeekBar.getProgress();
             record.setText(String.valueOf(recordRepeats));
             currentDateAndTime.setText(currentDateTimeString);
-
-
-
-//            saveRecord(recordRepeats, currentDateTimeString);
             Toast.makeText(getContext(), R.string.record_save, Toast.LENGTH_SHORT).show();
         } else if (repeatsSeekBar.getProgress() == NULL_REPEATS) {
             Toast.makeText(getContext(), R.string.null_repeats, Toast.LENGTH_SHORT).show();
@@ -183,17 +163,8 @@ public class WorkoutDetailFragment extends Fragment {
         }
     }
 
-//    private void saveRecord(int record, String currentDateTimeString) {
-//        SharedPreferences.Editor editor = myLastRecord.edit();
-//        editor.putInt(LAST_RECORD_REPEATS, record);
-//        editor.putString(LAST_RECORD_DATE, currentDateTimeString);
-//        editor.apply();
-//    }
 
     private void deleteRecord() {
-//        SharedPreferences.Editor editor = myLastRecord.edit();
-//        editor.clear();
-//        editor.apply();
         record.setText("");
         currentDateAndTime.setText("");
         Toast.makeText(getContext(), R.string.record_delete, Toast.LENGTH_SHORT).show();
@@ -208,11 +179,9 @@ public class WorkoutDetailFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        saveRecordIntent = new Intent();
-//        saveRecordIntent.putExtra(String.valueOf(R.string.record), record.getText().toString());
-//        setResult(RESULT_OK, saveRecordIntent);
-//        finish();
-//    }
+    private void initTimerFragment() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        WorkoutTimerFragment timerFragment = new WorkoutTimerFragment();
+        fragmentManager.beginTransaction().replace(R.id.workout_timer, timerFragment).commit();
+    }
 }

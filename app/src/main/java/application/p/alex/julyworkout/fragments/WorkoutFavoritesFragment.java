@@ -1,4 +1,4 @@
-package application.p.alex.julyworkout;
+package application.p.alex.julyworkout.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import application.p.alex.julyworkout.R;
 import application.p.alex.julyworkout.list.WorkoutAdapter;
 import application.p.alex.julyworkout.model.WorkoutList;
 
