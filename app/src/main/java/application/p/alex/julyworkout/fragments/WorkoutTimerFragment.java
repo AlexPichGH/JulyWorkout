@@ -57,7 +57,6 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
 
     private void initTimer(View root) {
         textViewWatch = root.findViewById(R.id.textView_watch);
-        textViewWatch.setText(R.string.timer_null);
         resetButton = root.findViewById(R.id.reset_button);
         stopButton = root.findViewById(R.id.stop_button);
         startButton = root.findViewById(R.id.start_button);
@@ -125,12 +124,5 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
                 handler.postDelayed(this, DELAY);
             }
         });
-    }
-
-    public String getTime() {
-        if (textViewWatch.getText() != null) {
-            return String.valueOf(textViewWatch.getText());
-        }
-        return getString(R.string.timer_null);
     }
 }
