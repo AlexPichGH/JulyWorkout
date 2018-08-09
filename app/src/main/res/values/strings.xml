@@ -50,5 +50,8 @@
     <string name="toast_empty_favorites">Вы не добавили ни одного упражнения в избранное</string>
     <string name="tag_fragment_favorites">FragmentFavorites</string>
     <string name="tag_fragment_workout_list">FragmentWorkoutList</string>
+    <string name="button_reset">Сброс</string>
+    <string name="button_stop">Стоп</string>
+    <string name="button_start">Старт</string>
 
 </resources>
