@@ -13,4 +13,5 @@
     <dimen name="text_large_font">18sp</dimen>
     <dimen name="text_medium_headline">24sp</dimen>
     <dimen name="text_big_headline">36sp</dimen>
+    <dimen name="text_timer">80sp</dimen>
 </resources>
