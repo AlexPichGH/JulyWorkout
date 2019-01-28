@@ -36,26 +36,21 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutViewHolder> {
     public void onBindViewHolder(@NonNull final WorkoutViewHolder workoutViewHolder, final int i) {
         workoutViewHolder.initUI(workouts.get(i));
         itemSelectedListener = (OnWorkoutListItemSelectedListener) context;
-        workoutViewHolder.item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                itemSelectedListener.onWorkoutListItemSelected(workoutViewHolder.getAdapterPosition());
-            }
-        });
-        workoutViewHolder.favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
-                    workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_on_24dp);
-                    WorkoutList.getInstance(context).setFavoriteWorkout(workoutViewHolder.getAdapterPosition());
-                    WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(true);
-                    Toast.makeText(context, "Упражнение добавлено в избранное", Toast.LENGTH_SHORT).show();
-                } else if (WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
-                    workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_off_24dp);
-                    WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(false);
-                    WorkoutList.getInstance(context).removeFavoriteWorkout(workoutViewHolder.getAdapterPosition());
-                    Toast.makeText(context, "Упражнение удалено из избранного", Toast.LENGTH_SHORT).show();
-                }
+
+        workoutViewHolder.item.setOnClickListener(view ->
+                itemSelectedListener.onWorkoutListItemSelected(workoutViewHolder.getAdapterPosition()));
+
+        workoutViewHolder.favorite.setOnClickListener(view -> {
+            if (!WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
+                workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_on_24dp);
+                WorkoutList.getInstance(context).setFavoriteWorkout(workoutViewHolder.getAdapterPosition());
+                WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(true);
+                Toast.makeText(context, "Упражнение добавлено в избранное", Toast.LENGTH_SHORT).show();
+            } else if (WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
+                workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_off_24dp);
+                WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(false);
+                WorkoutList.getInstance(context).removeFavoriteWorkout(workoutViewHolder.getAdapterPosition());
+                Toast.makeText(context, "Упражнение удалено из избранного", Toast.LENGTH_SHORT).show();
             }
         });
     }
