@@ -14,6 +14,9 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import application.p.alex.julyworkout.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class WorkoutTimerFragment extends Fragment implements View.OnClickListener {
 
@@ -24,11 +27,16 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
     private static final String KEY_RUNNING = "running";
     private static final String KEY_WAS_RUNNING = "wasRunning";
 
-    private TextView textViewWatch;
-    private Button resetButton;
-    private Button stopButton;
-    private Button startButton;
+    @BindView(R.id.textView_watch)
+    TextView textViewWatch;
+    @BindView(R.id.reset_button)
+    Button resetButton;
+    @BindView(R.id.stop_button)
+    Button stopButton;
+    @BindView(R.id.start_button)
+    Button startButton;
 
+    private Unbinder unbinder;
     private int seconds;
     private boolean running;
     private boolean wasRunning;
@@ -37,10 +45,13 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout_timer, container, false);
-        initTimer(root);
+
+        unbinder = ButterKnife.bind(this, root);
+        initTimer();
         if (!wasRunning) {
             runTimer();
         }
+
         return root;
     }
 
@@ -55,12 +66,7 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    private void initTimer(View root) {
-        textViewWatch = root.findViewById(R.id.textView_watch);
-        resetButton = root.findViewById(R.id.reset_button);
-        stopButton = root.findViewById(R.id.stop_button);
-        startButton = root.findViewById(R.id.start_button);
-
+    private void initTimer() {
         resetButton.setOnClickListener(this);
         stopButton.setOnClickListener(this);
         startButton.setOnClickListener(this);
@@ -124,5 +130,11 @@ public class WorkoutTimerFragment extends Fragment implements View.OnClickListen
                 handler.postDelayed(this, DELAY);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

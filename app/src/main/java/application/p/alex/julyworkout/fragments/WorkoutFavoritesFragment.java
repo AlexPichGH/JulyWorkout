@@ -22,12 +22,16 @@ public class WorkoutFavoritesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout_favorites, container, false);
+        initUi(root);
+        return root;
+    }
+
+    private void initUi(View root) {
         workoutRecycler = root.findViewById(R.id.workout_favorites_recycler);
         workoutAdapter = new WorkoutAdapter(getContext(), WorkoutList.getInstance(getContext()).getFavoriteWorkouts());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         workoutRecycler.setLayoutManager(linearLayoutManager);
         workoutRecycler.setAdapter(workoutAdapter);
-        return root;
     }
 
     @Override
