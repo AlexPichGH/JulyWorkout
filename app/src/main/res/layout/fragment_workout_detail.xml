@@ -37,9 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginTop="@dimen/layout_margin_8dp"
                 android:layout_marginEnd="@dimen/layout_margin_12dp"
                 android:layout_marginRight="@dimen/layout_margin_12dp"
-                android:layout_marginTop="@dimen/layout_margin_8dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_more_vert_black_24dp" />
         </FrameLayout>
@@ -106,6 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@id/workout_detail_difficult"
                 android:layout_alignRight="@id/workout_detail_difficult"
+                android:paddingStart="@dimen/padding_0"
+                android:paddingLeft="@dimen/padding_0"
                 android:paddingEnd="@dimen/padding_4dp"
                 android:paddingRight="@dimen/padding_4dp"
                 android:text="@string/difficult" />
@@ -116,9 +118,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/layout_margin_12dp"
                 android:layout_marginRight="@dimen/layout_margin_12dp"
-                android:paddingLeft="@dimen/padding_4dp"
                 android:paddingStart="@dimen/padding_4dp"
+                android:paddingLeft="@dimen/padding_4dp"
+                android:paddingEnd="@dimen/padding_0"
+                android:paddingRight="@dimen/padding_0"
                 android:textSize="@dimen/text_high_medium_font"
                 tools:text="@string/difficult_easy" />
         </RelativeLayout>
@@ -128,12 +133,7 @@
             style="@style/WorkoutDetailTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/layout_margin_8dp" />
-
-        <FrameLayout
-            android:id="@+id/workout_timer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </FrameLayout>
+            android:layout_marginTop="@dimen/layout_margin_8dp"
+            android:layout_marginBottom="@dimen/layout_margin_16dp" />
     </LinearLayout>
 </ScrollView>
