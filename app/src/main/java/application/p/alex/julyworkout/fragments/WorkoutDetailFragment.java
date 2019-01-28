@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,24 +25,37 @@ import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListen
 import application.p.alex.julyworkout.model.Workout;
 import application.p.alex.julyworkout.model.WorkoutList;
 import application.p.alex.julyworkout.utils.Constants;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class WorkoutDetailFragment extends Fragment {
-    private static final String LAST_RECORD_REPEATS = "lastrecord";
-    private static final String LAST_RECORD_DATE = "lastrecorddate";
+
+    private static final String LAST_RECORD_REPEATS = "last_record";
+    private static final String LAST_RECORD_DATE = "last_record_date";
+    @BindView(R.id.workout_detail_title)
+    TextView title;
+    @BindView(R.id.workout_detail_description)
+    TextView description;
+    @BindView(R.id.workout_detail_repeats_count)
+    TextView repsCount;
+    //    @BindView(R.id.workout_detail_time)
+//    TextView executingTime;
+    @BindView(R.id.workout_detail_difficult)
+    TextView difficult;
+    @BindView(R.id.workout_detail_record)
+    TextView record;
+    @BindView(R.id.workout_detail_current_date_time)
+    TextView currentDateAndTime;
+    @BindView(R.id.workout_detail_image)
+    ImageView imageView;
+    @BindView(R.id.workout_detail_popup_menu)
+    ImageView popupMenu;
+    @BindView(R.id.workout_detail_seek_bar)
+    SeekBar repeatsSeekBar;
     private static final int NULL_REPEATS = 0;
     OnWorkoutListItemSelectedListener itemSelectedListener;
-
-    private TextView title;
-    private TextView description;
-    private TextView repsCount;
-    private TextView executingTime;
-    private TextView difficult;
-    private TextView record;
-    private TextView currentDateAndTime;
-    private ImageView imageView;
-    private ImageView popupMenu;
-    private SeekBar repeatsSeekBar;
-
+    private Unbinder unbinder;
     private int workoutIndex;
     private int recordRepeats;
     private String currentDateTimeString;
@@ -66,7 +78,10 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_workout_detail, container, false);
-        iniUI(root);
+
+        unbinder = ButterKnife.bind(this, root);
+
+        iniUI();
         initTimerFragment();
         return root;
     }
@@ -74,26 +89,18 @@ public class WorkoutDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        assert getArguments() != null;
-        workoutIndex = getArguments().getInt(Constants.WORKOUT_INDEX);
+        if (getArguments() != null) {
+            workoutIndex = getArguments().getInt(Constants.WORKOUT_INDEX);
+        }
     }
 
-    private void iniUI(View root) {
+    private void iniUI() {
         Workout workout = WorkoutList.getInstance(getContext()).getWorkout(workoutIndex);
-        title = root.findViewById(R.id.workout_detail_title);
         title.setText(workout.getTitle());
-        description = root.findViewById(R.id.workout_detail_description);
         description.setText(workout.getDescription());
-        repsCount = root.findViewById(R.id.workout_detail_repeats_count);
         repsCount.setText(String.valueOf(workout.getRepeatsCount()));
-        executingTime = root.findViewById(R.id.workout_detail_time);
-        difficult = root.findViewById(R.id.workout_detail_difficult);
         difficult.setText(workout.getDifficult());
-        record = root.findViewById(R.id.workout_detail_record);
-        currentDateAndTime = root.findViewById(R.id.workout_detail_current_date_time);
-        imageView = root.findViewById(R.id.workout_detail_image);
         imageView.setImageResource(workout.getImageResRef());
-        repeatsSeekBar = root.findViewById(R.id.workout_detail_seek_bar);
         repeatsSeekBar.setProgress(workout.getRepeatsCount());
         repeatsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -112,38 +119,28 @@ public class WorkoutDetailFragment extends Fragment {
             }
         });
 
-        popupMenu = root.findViewById(R.id.workout_detail_popup_menu);
-        popupMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopUpMenu(view);
-            }
-        });
-
+        popupMenu.setOnClickListener(this::showPopUpMenu);
     }
 
     private void showPopUpMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(getContext(), view);
         popupMenu.inflate(R.menu.workout_detail_popup_menu);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.workout_detail_popup_save: {
-                        setRecords();
-                        return true;
-                    }
-                    case R.id.workout_detail_popup_delete: {
-                        deleteRecord();
-                        return true;
-                    }
-                    case R.id.workout_detail_popup_share: {
-                        shareRecord();
-                        return true;
-                    }
-                    default:
-                        return false;
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.workout_detail_popup_save: {
+                    setRecords();
+                    return true;
                 }
+                case R.id.workout_detail_popup_delete: {
+                    deleteRecord();
+                    return true;
+                }
+                case R.id.workout_detail_popup_share: {
+                    shareRecord();
+                    return true;
+                }
+                default:
+                    return false;
             }
         });
         popupMenu.show();
@@ -183,5 +180,11 @@ public class WorkoutDetailFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         WorkoutTimerFragment timerFragment = new WorkoutTimerFragment();
         fragmentManager.beginTransaction().replace(R.id.workout_timer, timerFragment).commit();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
