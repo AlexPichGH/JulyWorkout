@@ -1,46 +1,35 @@
 package application.p.alex.julyworkout.model;
 
-import java.util.Date;
-
 public class Workout {
+    private String workoutId;
     private String title;
     private String description;
-    private int imageResRef;
-    private int imagePreview;
+    private String image;
+    private String preview;
     private String difficult;
     private int repeatsCount;
     private int lastRecordRepeats;
-    private Date lastRecordDate;
+    private String lastRecordDate;
     private String executingTime;
     private boolean isFavorite;
 
     public Workout() {
     }
 
-    public Workout(String title, String description, String difficult, int repeatsCount, String executingTime) {
-        this.title = title;
-        this.description = description;
-        this.difficult = difficult;
-        this.repeatsCount = repeatsCount;
-        this.executingTime = executingTime;
+    String getWorkoutId() {
+        return workoutId;
     }
 
-    public Workout(String title, String description, int imageResRef, int imagePreview, String difficult, String executingTime) {
-        this.title = title;
-        this.description = description;
-        this.imageResRef = imageResRef;
-        this.imagePreview = imagePreview;
-        this.difficult = difficult;
-        this.executingTime = executingTime;
-        this.isFavorite = false;
+    public void setWorkoutId(String workoutId) {
+        this.workoutId = workoutId;
     }
 
-    public int getImagePreview() {
-        return imagePreview;
+    public String getPreview() {
+        return preview;
     }
 
-    public void setImagePreview(int imagePreview) {
-        this.imagePreview = imagePreview;
+    public void setPreview(String preview) {
+        this.preview = preview;
     }
 
     public String getTitle() {
@@ -83,11 +72,11 @@ public class Workout {
         this.lastRecordRepeats = lastRecordRepeats;
     }
 
-    public Date getLastRecordDate() {
+    public String getLastRecordDate() {
         return lastRecordDate;
     }
 
-    public void setLastRecordDate(Date lastRecordDate) {
+    public void setLastRecordDate(String lastRecordDate) {
         this.lastRecordDate = lastRecordDate;
     }
 
@@ -99,12 +88,12 @@ public class Workout {
         this.executingTime = executingTime;
     }
 
-    public int getImageResRef() {
-        return imageResRef;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageResRef(int imageResRef) {
-        this.imageResRef = imageResRef;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isFavorite() {
