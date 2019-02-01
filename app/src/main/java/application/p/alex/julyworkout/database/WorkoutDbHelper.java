@@ -1,6 +1,7 @@
 package application.p.alex.julyworkout.database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
@@ -13,7 +14,7 @@ import java.io.OutputStream;
 
 public class WorkoutDbHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     private static final String DB_NAME = "WorkoutListDB.db";
     private static String DB_PATH = "";
     private final Context dbContext;
@@ -25,7 +26,6 @@ public class WorkoutDbHelper extends SQLiteOpenHelper {
 
         DB_PATH = "data/data/application.p.alex.julyworkout/databases/";
         this.dbContext = context;
-
 
         this.getReadableDatabase();
     }
@@ -74,6 +74,11 @@ public class WorkoutDbHelper extends SQLiteOpenHelper {
         mOutput.flush();
         mOutput.close();
         mInput.close();
+    }
+
+    public boolean openDataBase() throws SQLException {
+        dataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        return dataBase != null;
     }
 
     @Override

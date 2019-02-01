@@ -1,19 +1,20 @@
 package application.p.alex.julyworkout.database;
 
-class WorkoutDbSchema {
+public class WorkoutDbSchema {
     public static final class WorkoutTable {
         public static final String NAME = "workouts";
 
-        static final class Columns {
-            static final String WORKOUT_TITLE = "title";
-            static final String WORKOUT_DESCRIPTION = "description";
-            static final String WORKOUT_DIFFICULT = "difficult";
-            static final String WORKOUT_TIME = "time";
-            static final String WORKOUT_PREVIEW = "preview";
-            static final String WORKOUT_IMAGE = "image";
-            static final String WORKOUT_RECORD = "record";
-            static final String WORKOUT_RECORD_DATE = "record_date";
-            static final String WORKOUT_FAVORITE = "favorite";
+        public static final class Columns {
+            public static final String WORKOUT_ID = "workout_id";
+            public static final String WORKOUT_TITLE = "title";
+            public static final String WORKOUT_DESCRIPTION = "description";
+            public static final String WORKOUT_DIFFICULT = "difficult";
+            public static final String WORKOUT_TIME = "time";
+            public static final String WORKOUT_PREVIEW = "preview";
+            public static final String WORKOUT_IMAGE = "image";
+            public static final String WORKOUT_RECORD = "record";
+            public static final String WORKOUT_RECORD_DATE = "record_date";
+            public static final String WORKOUT_FAVORITE = "favorite";
         }
     }
 }

@@ -3,6 +3,10 @@ package application.p.alex.julyworkout.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import application.p.alex.julyworkout.database.WorkoutDbSchema.WorkoutTable.Columns;
 import application.p.alex.julyworkout.model.Workout;
 
@@ -13,7 +17,7 @@ public class WorkoutCursorWrapper extends CursorWrapper {
     }
 
     public Workout getWorkouts() {
-
+        String workout_id = getString(getColumnIndex(Columns.WORKOUT_ID));
         String title = getString(getColumnIndex(Columns.WORKOUT_TITLE));
         String description = getString(getColumnIndex(Columns.WORKOUT_DESCRIPTION));
         String difficult = getString(getColumnIndex(Columns.WORKOUT_DIFFICULT));
@@ -21,10 +25,11 @@ public class WorkoutCursorWrapper extends CursorWrapper {
         String preview = getString(getColumnIndex(Columns.WORKOUT_PREVIEW));
         String image = getString(getColumnIndex(Columns.WORKOUT_IMAGE));
         int record = getInt(getColumnIndex(Columns.WORKOUT_RECORD));
-        String recordDate = getString(getColumnIndex(Columns.WORKOUT_RECORD_DATE));
+        long recordDate = getLong(getColumnIndex(Columns.WORKOUT_RECORD_DATE));
         int indexFavorite = getInt(getColumnIndex(Columns.WORKOUT_FAVORITE));
 
         Workout workout = new Workout();
+        workout.setWorkoutId(workout_id);
         workout.setTitle(title);
         workout.setDescription(description);
         workout.setDifficult(difficult);
@@ -32,7 +37,8 @@ public class WorkoutCursorWrapper extends CursorWrapper {
         workout.setPreview(preview);
         workout.setImage(image);
         workout.setLastRecordRepeats(record);
-        workout.setLastRecordDate(recordDate);
+        workout.setLastRecordDate(recordDate == 0 ? "" : new SimpleDateFormat("EEE, MMM dd", Locale.ROOT)
+                .format(new Date(recordDate)));
         workout.setFavorite(isFavorite(indexFavorite));
 
         return workout;
