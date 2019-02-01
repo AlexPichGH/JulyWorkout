@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/workout_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,27 +9,34 @@
     android:layout_marginRight="@dimen/layout_margin_24dp"
     android:layout_marginBottom="@dimen/layout_margin_8dp">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/list_item_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/list_item_image_height"
             android:layout_margin="@dimen/layout_margin_4dp"
             android:contentDescription="@string/todo"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/list_item_difficult"
             style="@style/ListItemTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_margin_8dp"
+            android:layout_marginLeft="@dimen/layout_margin_8dp"
             android:layout_marginTop="@dimen/layout_margin_8dp"
-            android:textColor="@color/color_white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_large_font"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/list_item_image"
+            app:layout_constraintTop_toTopOf="@+id/list_item_image" />
 
         <TextView
             android:id="@+id/list_item_title"
@@ -41,7 +49,10 @@
             android:text="@string/push_ups"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_large_font"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/list_item_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/list_item_executing_time"
@@ -51,11 +62,16 @@
             android:layout_alignBottom="@id/list_item_image"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/layout_margin_4dp"
+            android:layout_marginRight="@dimen/layout_margin_4dp"
             android:drawableStart="@drawable/ic_timer_white_24dp"
             android:drawableLeft="@drawable/ic_timer_white_24dp"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_medium_font"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/list_item_description"
+            app:layout_constraintEnd_toEndOf="@+id/list_item_title"
+            app:layout_constraintTop_toTopOf="@+id/list_item_title" />
 
         <ImageView
             android:id="@+id/list_item_favorite"
@@ -68,7 +84,9 @@
             android:layout_marginEnd="@dimen/layout_margin_8dp"
             android:layout_marginRight="@dimen/layout_margin_8dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/ic_favorite_off_24dp" />
+            android:src="@drawable/ic_favorite_off_24dp"
+            app:layout_constraintEnd_toEndOf="@+id/list_item_image"
+            app:layout_constraintTop_toTopOf="@+id/list_item_image" />
 
         <TextView
             android:id="@+id/list_item_description"
@@ -76,29 +94,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/list_item_image"
+            android:layout_marginTop="@dimen/layout_margin_4dp"
             android:maxLines="4"
             android:text="@string/push_up_description"
-            android:textSize="@dimen/text_medium_font" />
+            android:textSize="@dimen/text_medium_font"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_item_image" />
 
         <View
             android:id="@+id/horizontal_separator"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_margin_4dp"
             android:layout_below="@id/list_item_description"
+            android:layout_marginStart="@dimen/layout_margin_8dp"
             android:layout_marginLeft="@dimen/layout_margin_8dp"
-            android:layout_marginTop="@dimen/layout_margin_4dp"
+            android:layout_marginEnd="@dimen/layout_margin_8dp"
             android:layout_marginRight="@dimen/layout_margin_8dp"
-            android:layout_marginBottom="@dimen/layout_margin_4dp"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_description" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/horizontal_separator"
-            android:layout_marginLeft="@dimen/layout_margin_4dp"
-            android:layout_marginRight="@dimen/layout_margin_4dp"
-            android:layout_marginBottom="@dimen/layout_margin_4dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/layout_margin_4dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_item_description">
 
             <TextView
                 android:id="@+id/list_item_record_date"
@@ -106,7 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_calendar_black"
-                android:drawableLeft="@drawable/ic_calendar_black" />
+                android:drawableLeft="@drawable/ic_calendar_black"
+                android:padding="@dimen/padding_4dp" />
 
             <TextView
                 android:id="@+id/list_item_record_repeats"
@@ -114,8 +142,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_rewards_trophy_black"
-                android:drawableLeft="@drawable/ic_rewards_trophy_black" />
+                android:drawableLeft="@drawable/ic_rewards_trophy_black"
+                android:padding="@dimen/padding_4dp" />
         </LinearLayout>
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
