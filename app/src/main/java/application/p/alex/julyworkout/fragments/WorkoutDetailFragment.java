@@ -2,6 +2,7 @@ package application.p.alex.julyworkout.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,10 +16,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import application.p.alex.julyworkout.GlideApp;
 import application.p.alex.julyworkout.R;
 import application.p.alex.julyworkout.interfaces.OnWorkoutListItemSelectedListener;
 import application.p.alex.julyworkout.model.Workout;
@@ -30,16 +34,14 @@ import butterknife.Unbinder;
 
 public class WorkoutDetailFragment extends Fragment {
 
-    private static final String LAST_RECORD_REPEATS = "last_record";
-    private static final String LAST_RECORD_DATE = "last_record_date";
     @BindView(R.id.workout_detail_title)
     TextView title;
     @BindView(R.id.workout_detail_description)
     TextView description;
     @BindView(R.id.workout_detail_repeats_count)
     TextView repsCount;
-    //    @BindView(R.id.workout_detail_time)
-//    TextView executingTime;
+    @BindView(R.id.workout_detail_time)
+    TextView executingTime;
     @BindView(R.id.workout_detail_difficult)
     TextView difficult;
     @BindView(R.id.workout_detail_record)
@@ -80,7 +82,7 @@ public class WorkoutDetailFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, root);
 
-        iniUI();
+        iniUI(root);
         return root;
     }
 
@@ -92,13 +94,19 @@ public class WorkoutDetailFragment extends Fragment {
         }
     }
 
-    private void iniUI() {
-        Workout workout = WorkoutList.getInstance(getContext()).getWorkout(workoutIndex);
+    private void iniUI(View view) {
+        Workout workout = WorkoutList.getInstance(getContext()).getWorkoutList().get(workoutIndex);
         title.setText(workout.getTitle());
         description.setText(workout.getDescription());
         repsCount.setText(String.valueOf(workout.getRepeatsCount()));
+        executingTime.setText(workout.getExecutingTime());
         difficult.setText(workout.getDifficult());
-        imageView.setImageResource(workout.getImageResRef());
+        currentDateAndTime.setText(String.valueOf(workout.getLastRecordDate()));
+        try {
+            setImage(view, workout);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         repeatsSeekBar.setProgress(workout.getRepeatsCount());
         repeatsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -118,6 +126,16 @@ public class WorkoutDetailFragment extends Fragment {
         });
 
         popupMenu.setOnClickListener(this::showPopUpMenu);
+    }
+
+    private void setImage(View view, Workout workout) throws IOException {
+        InputStream imageStream = view.getContext().getAssets().open(workout.getImage());
+
+        GlideApp
+                .with(this)
+                .load(Drawable.createFromStream(imageStream, null))
+                .fitCenter()
+                .into(imageView);
     }
 
     private void showPopUpMenu(View view) {

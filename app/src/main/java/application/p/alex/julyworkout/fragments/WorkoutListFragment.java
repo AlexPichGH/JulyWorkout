@@ -37,7 +37,7 @@ public class WorkoutListFragment extends Fragment {
 
     private void initUi(View root) {
         workoutRecycler = root.findViewById(R.id.workout_list_recycler);
-        workoutAdapter = new WorkoutAdapter(getContext(), WorkoutList.getInstance(getContext()).getWorkoutList());
+        workoutAdapter = new WorkoutAdapter(root.getContext(), WorkoutList.getInstance(getContext()).getWorkoutList());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         workoutRecycler.setLayoutManager(linearLayoutManager);
         workoutRecycler.setAdapter(workoutAdapter);
