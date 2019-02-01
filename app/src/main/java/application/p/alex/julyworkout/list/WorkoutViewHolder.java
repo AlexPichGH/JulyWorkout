@@ -1,5 +1,6 @@
 package application.p.alex.julyworkout.list;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +8,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import application.p.alex.julyworkout.GlideApp;
 import application.p.alex.julyworkout.R;
 import application.p.alex.julyworkout.model.Workout;
 
-public class WorkoutViewHolder extends RecyclerView.ViewHolder {
+class WorkoutViewHolder extends RecyclerView.ViewHolder {
     CardView item;
     ImageView favorite;
     private TextView title;
@@ -21,7 +26,7 @@ public class WorkoutViewHolder extends RecyclerView.ViewHolder {
     private TextView executingTime;
     private ImageView image;
 
-    public WorkoutViewHolder(@NonNull View itemView) {
+    WorkoutViewHolder(@NonNull View itemView) {
         super(itemView);
         item = itemView.findViewById(R.id.workout_list_item);
         favorite = itemView.findViewById(R.id.list_item_favorite);
@@ -34,18 +39,32 @@ public class WorkoutViewHolder extends RecyclerView.ViewHolder {
         image = itemView.findViewById(R.id.list_item_image);
     }
 
-    public void initUI(Workout workout) {
+    void initUI(Workout workout) {
         title.setText(workout.getTitle());
         description.setText(workout.getDescription());
         difficult.setText(workout.getDifficult());
         recordReps.setText(String.valueOf(workout.getLastRecordRepeats()));
-//            recordDate.setText(new SimpleDateFormat("dd.MM.yyyy").format(workout.getLastRecordDate()));
+        recordDate.setText(String.valueOf(workout.getLastRecordDate()));
         executingTime.setText(workout.getExecutingTime());
-        image.setImageResource(workout.getImagePreview());
+        try {
+            setImage(workout);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (workout.isFavorite()) {
             favorite.setImageResource(R.drawable.ic_favorite_on_24dp);
         } else if (!workout.isFavorite()) {
             favorite.setImageResource(R.drawable.ic_favorite_off_24dp);
         }
+    }
+
+    private void setImage(Workout workout) throws IOException {
+        InputStream imageStream = item.getContext().getAssets().open(workout.getPreview());
+
+        GlideApp
+                .with(itemView)
+                .load(Drawable.createFromStream(imageStream, null))
+                .centerInside()
+                .into(image);
     }
 }

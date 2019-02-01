@@ -2,11 +2,11 @@ package application.p.alex.julyworkout.list;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -41,16 +41,15 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutViewHolder> {
                 itemSelectedListener.onWorkoutListItemSelected(workoutViewHolder.getAdapterPosition()));
 
         workoutViewHolder.favorite.setOnClickListener(view -> {
-            if (!WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
+            if (!WorkoutList.getInstance(context).getFavoriteWorkouts().contains(workouts.get(i))) {
                 workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_on_24dp);
-                WorkoutList.getInstance(context).setFavoriteWorkout(workoutViewHolder.getAdapterPosition());
-                WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(true);
-                Toast.makeText(context, "Упражнение добавлено в избранное", Toast.LENGTH_SHORT).show();
-            } else if (WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).isFavorite()) {
+                WorkoutList.getInstance(context).addWorkoutToFavorite(workouts.get(i));
+                Snackbar.make(workoutViewHolder.itemView, "Упражнение добавлено в избранное", Snackbar.LENGTH_SHORT).show();
+
+            } else if (WorkoutList.getInstance(context).getFavoriteWorkouts().contains(workouts.get(i))) {
                 workoutViewHolder.favorite.setImageResource(R.drawable.ic_favorite_off_24dp);
-                WorkoutList.getInstance(context).getWorkout(workoutViewHolder.getAdapterPosition()).setFavorite(false);
-                WorkoutList.getInstance(context).removeFavoriteWorkout(workoutViewHolder.getAdapterPosition());
-                Toast.makeText(context, "Упражнение удалено из избранного", Toast.LENGTH_SHORT).show();
+                WorkoutList.getInstance(context).deleteWorkoutFromFavorite(workouts.get(i));
+                Snackbar.make(workoutViewHolder.itemView, "Упражнение удалено из избранного", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
